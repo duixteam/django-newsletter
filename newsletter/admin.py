@@ -192,7 +192,7 @@ class ArticleInline(AdminImageMixin, StackedInline):
     extra = 2
     fieldsets = (
         (None, {
-            'fields': ('title', 'sortorder', 'text')
+            'fields': ('title', 'sortorder', 'text', 'language')
         }),
         (_('Optional'), {
             'fields': ('url', 'image'),

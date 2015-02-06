@@ -271,7 +271,7 @@ class Subscription(models.Model):
             # If we are subscribed now and we used not to be so, subscribe.
             # If we user to be unsubscribed but are not so anymore, subscribe.
             if ((self.subscribed and not old_subscribed) or
-               (old_unsubscribed and not self.unsubscribed)):
+                    (old_unsubscribed and not self.unsubscribed)):
                 self._subscribe()
 
                 assert not self.unsubscribed
@@ -418,6 +418,7 @@ class Subscription(models.Model):
 
 
 class Article(models.Model):
+
     """
     An Article within a Message which will be send through a Submission.
     """
@@ -463,6 +464,10 @@ class Article(models.Model):
         'Message', verbose_name=_('message'), related_name='articles'
     )
 
+    language = models.CharField(_(u'Language'), max_length=50,
+                                choices=settings.LANGUAGES, default='es',
+                                help_text=_(u'Solo se muestra en ese idioma'))
+
     class Meta:
         ordering = ('sortorder',)
         verbose_name = _('article')
@@ -473,6 +478,7 @@ class Article(models.Model):
 
 
 class Message(models.Model):
+
     """ Message as sent through a Submission. """
 
     title = models.CharField(max_length=200, verbose_name=_('title'))
@@ -522,6 +528,7 @@ class Message(models.Model):
 
 
 class Submission(models.Model):
+
     """
     Submission represents a particular Message as it is being submitted
     to a list of Subscribers. This is where actual queueing and submission
